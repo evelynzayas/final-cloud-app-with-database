@@ -104,13 +104,11 @@ class Enrollment(models.Model):
 class Question(models.Model):
     # Foreign key to course
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    # question text
-    question_text = models.CharField(max_length=250)
-    # question grade/mark
+    question_text = models.CharField(max_length=250, default="queston text")
     grade = models.IntegerField(default=0)
     
     def __str__(self):
-        return "Question: " + self.content
+        return "Question: " + self.question_text
 
     # <HINT> A sample model method to calculate if learner get the score of the question
     def is_get_score(self, selected_ids):
@@ -130,8 +128,9 @@ class Question(models.Model):
     # Other fields and methods you would like to design
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.TextField()
-    is_correct = models.IntegerField(default=0)
+    choice_text = models.CharField(max_length=200,default="")
+    is_correct = models.BooleanField(default=False) 
+
 
 
 # <HINT> The submission model
